@@ -7,10 +7,12 @@ import roomRoutes from './routes/room.route';
 import authRoute from './routes/auth.route';
 import adminRoomRoute from './routes/admin.room.route';
 import { authenticateJWT } from './middleware/auth.middleware';
+import swaggerDocument from '../swagger.json';
+import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 
-// ✅ Подключи cookie-parser
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -18,6 +20,10 @@ app.use(cookieParser());
 app.use('/api', roomRoutes);
 app.use('/api', authRoute);
 app.use('/api', adminRoomRoute);
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
