@@ -1,0 +1,27 @@
+// src/middleware/auth.middleware.ts
+
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'hotel_secret_key';
+
+export const authenticateJWT = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    res.status(401).json({ error: 'Не авторизован' });
+    return;
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    (req as any).admin = decoded;
+    next();
+  } catch (err) {
+    res.status(403).json({ error: 'Недействительный токен' });
+  }
+};
