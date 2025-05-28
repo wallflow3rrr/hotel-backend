@@ -7,6 +7,7 @@ import authRoute from './routes/auth.route';
 import adminRoomRoute from './routes/admin.room.route';
 import swaggerDocument from '../swagger.json';
 import swaggerUi from 'swagger-ui-express';
+import bookingRoute from './routes/booking.route';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use('/api', roomRoutes);
 app.use('/api', authRoute);
 app.use('/api', adminRoomRoute);
+app.use('/api', bookingRoute);
 
 if (process.env.NODE_ENV !== 'production') {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
