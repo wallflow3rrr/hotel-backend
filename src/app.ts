@@ -9,9 +9,11 @@ import adminRoomRoute from './routes/admin.room.route';
 import { authenticateJWT } from './middleware/auth.middleware';
 import swaggerDocument from '../swagger.json';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'express';
 
 const app = express();
 
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -20,6 +22,9 @@ app.use(cookieParser());
 app.use('/api', roomRoutes);
 app.use('/api', authRoute);
 app.use('/api', adminRoomRoute);
+
+
+
 
 if (process.env.NODE_ENV !== 'production') {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
