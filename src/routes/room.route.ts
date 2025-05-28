@@ -1,4 +1,3 @@
-// src/routes/room.route.ts
 
 import express from 'express';
 import { getAllRooms, getRoomById } from '../controllers/room.controller';

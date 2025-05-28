@@ -1,4 +1,3 @@
-// src/routes/admin.booking.route.ts
 
 import express from 'express';
 import { authenticateJWT } from '../middleware/auth.middleware';
@@ -14,5 +13,6 @@ router.get('/admin/bookings', authenticateJWT, async (req: express.Request, res:
     res.status(500).json({ error: 'Не удалось получить бронирования' });
   }
 });
+
 
 export default router;

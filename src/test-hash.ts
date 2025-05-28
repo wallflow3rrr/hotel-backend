@@ -1,4 +1,3 @@
-// src/test-hash.ts
 
 import { hashPassword } from './utils/auth.utils';
 import db from './config/db';

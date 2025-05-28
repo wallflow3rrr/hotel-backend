@@ -1,4 +1,3 @@
-// src/controllers/room.controller.ts
 
 import express from 'express';
 import db from '../config/db';
@@ -7,8 +6,7 @@ type Request = express.Request;
 type Response = express.Response;
 
 export const getRoomById = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params; // Получаем ID из URL
-
+  const { id } = req.params;
   if (!id || isNaN(Number(id))) {
     res.status(400).json({ error: 'ID должен быть числом' });
     return;
