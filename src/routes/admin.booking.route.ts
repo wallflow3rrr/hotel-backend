@@ -15,4 +15,5 @@ router.get('/admin/bookings', authenticateJWT, async (req: express.Request, res:
   }
 });
 
+
 export default router;

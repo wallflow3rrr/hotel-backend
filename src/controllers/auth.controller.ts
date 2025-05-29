@@ -2,7 +2,10 @@
 
 import { Request, Response } from 'express';
 import db from '../config/db';
-import { comparePassword, generateToken } from '../utils/auth.utils';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'hotel_secret_key';
 
 export const loginAdmin = async (req: Request, res: Response): Promise<void> => {
   const { login, password } = req.body;
@@ -19,18 +22,22 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
       res.status(401).json({ error: 'Неверный логин или пароль' });
     }
 
-    const isValidPassword = await comparePassword(password, admin.password_hash);
+    // ✅ Используем bcrypt для сравнения
+    const isPasswordValid = await bcrypt.compare(password, admin.password_hash);
 
-    if (!isValidPassword) {
+    if (!isPasswordValid) {
       res.status(401).json({ error: 'Неверный логин или пароль' });
     }
 
-    const token = generateToken(admin.id);
+    // ✅ Генерируем токен
+    const token = jwt.sign({ id: admin.id }, JWT_SECRET, { expiresIn: '1h' });
+
+    // ✅ Устанавливаем куку
     res.cookie('token', token, { httpOnly: true });
 
     res.json({ message: 'Вход успешен', admin });
-  } catch (error) {
-    console.error('Ошибка при входе:', error);
+  } catch (err) {
+    console.error('Ошибка при входе:', err);
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 };

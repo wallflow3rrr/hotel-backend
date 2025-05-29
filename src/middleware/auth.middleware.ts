@@ -10,11 +10,10 @@ export const authenticateJWT = (
   res: Response,
   next: NextFunction
 ): void => {
-  const token = req.cookies.token;
+  const token = req.cookies?.token;
 
   if (!token) {
     res.status(401).json({ error: 'Не авторизован' });
-    return;
   }
 
   try {
@@ -22,6 +21,7 @@ export const authenticateJWT = (
     (req as any).admin = decoded;
     next();
   } catch (err) {
+    console.error('Ошибка верификации токена:', err);
     res.status(403).json({ error: 'Недействительный токен' });
   }
 };
