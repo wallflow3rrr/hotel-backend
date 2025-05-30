@@ -1,4 +1,3 @@
-// src/routes/auth.route.ts
 
 import express from 'express';
 import { loginAdmin } from '../controllers/auth.controller';

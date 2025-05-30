@@ -1,4 +1,3 @@
-// src/routes/booking.route.ts
 
 import express from 'express';
 import { createBooking, getAllBookings } from '../controllers/booking.controller';

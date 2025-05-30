@@ -1,4 +1,3 @@
-// src/test-auth-utils.ts
 
 import { hashPassword, generateToken } from './utils/auth.utils';
 

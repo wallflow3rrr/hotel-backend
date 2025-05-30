@@ -1,4 +1,3 @@
-// src/controllers/booking.controller.ts
 
 import express from 'express';
 import db from '../config/db';
@@ -9,7 +8,6 @@ type Response = express.Response;
 export const createBooking = async (req: Request, res: Response): Promise<void> => {
     const { room_id, guest_name, email, start_date, end_date, guests, guest_ages } = req.body;
   
-    // Проверка обязательных полей
     if (!room_id || !guest_name || !email || !start_date || !end_date || !guests) {
       res.status(400).json({ error: 'Все поля обязательны' });
     }

@@ -1,4 +1,3 @@
-// src/app.ts
 
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -26,7 +25,6 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// Роуты
 app.use('/api', roomRoutes);
 app.use('/api', authRoute);
 app.use('/api', adminRoomRoute);

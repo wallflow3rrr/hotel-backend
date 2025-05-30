@@ -1,4 +1,3 @@
-// src/controllers/auth.controller.ts
 
 import { Request, Response } from 'express';
 import db from '../config/db';
@@ -22,17 +21,14 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
       res.status(401).json({ error: 'Неверный логин или пароль' });
     }
 
-    // ✅ Используем bcrypt для сравнения
     const isPasswordValid = await bcrypt.compare(password, admin.password_hash);
 
     if (!isPasswordValid) {
       res.status(401).json({ error: 'Неверный логин или пароль' });
     }
 
-    // ✅ Генерируем токен
     const token = jwt.sign({ id: admin.id }, JWT_SECRET, { expiresIn: '1h' });
 
-    // ✅ Устанавливаем куку
     res.cookie('token', token, { httpOnly: true });
 
     res.json({ message: 'Вход успешен', admin });

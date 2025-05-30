@@ -1,4 +1,3 @@
-// src/routes/admin.booking.route.ts
 
 import express from 'express';
 import { authenticateJWT } from '../middleware/auth.middleware';
