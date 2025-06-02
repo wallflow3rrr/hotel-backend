@@ -7,6 +7,6 @@ import {checkRefreshToken} from '../middleware/auth.middleware'
 const router = express.Router();
 
 router.post('/login', loginAdmin);
-router.post('/refresh-token', checkRefreshToken, refreshAccessToken);
+router.get('/refresh-token', checkRefreshToken, refreshAccessToken);
 
 export default router;

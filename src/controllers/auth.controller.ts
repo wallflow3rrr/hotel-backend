@@ -69,7 +69,7 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
   
       const newAccessToken = jwt.sign({ id: storedToken.admin_id }, JWT_SECRET, { expiresIn: '1h' });
   
-      res.cookie('token', newAccessToken, { maxAge: 60 * 60 * 1000 });
+      res.cookie('token', newAccessToken, { maxAge: 60 * 1000 });
   
       res.json({ token: newAccessToken });
     } catch (err) {

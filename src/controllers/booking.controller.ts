@@ -1,6 +1,7 @@
 
 import express from 'express';
 import db from '../config/db';
+import { refreshAccessToken } from './auth.controller';
 
 type Request = express.Request;
 type Response = express.Response;
