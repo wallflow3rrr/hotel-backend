@@ -31,7 +31,7 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
       res.status(401).json({ error: 'Неверный логин или пароль' });
     }
 
-    const accessToken = jwt.sign({ id: admin.id }, JWT_SECRET, { expiresIn: '1h' });
+    const accessToken = jwt.sign({ id: admin.id }, JWT_SECRET, { expiresIn: '1m' });
 
     const refreshToken = jwt.sign({ id: admin.id }, REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
@@ -40,8 +40,8 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
       [admin.id, refreshToken, new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)]
     );
 
-    res.cookie('token', accessToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+    res.cookie('token', accessToken, { maxAge: 60 * 1000 });
+    res.cookie('refreshToken', refreshToken, { maxAge: 7 * 24 * 60 * 60 * 1000 });
 
     res.json({ message: 'Вход успешен', admin });
   } catch (err) {
@@ -69,7 +69,7 @@ export const loginAdmin = async (req: Request, res: Response): Promise<void> => 
   
       const newAccessToken = jwt.sign({ id: storedToken.admin_id }, JWT_SECRET, { expiresIn: '1h' });
   
-      res.cookie('token', newAccessToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+      res.cookie('token', newAccessToken, { maxAge: 60 * 60 * 1000 });
   
       res.json({ token: newAccessToken });
     } catch (err) {
